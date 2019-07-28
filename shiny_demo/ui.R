@@ -9,55 +9,59 @@
 
 library(shiny)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-    theme = shinythemes::shinytheme("spacelab"),
+# shinyUI(
+navbarPage("World Population Data for showing powerful RShiny features",
+    # theme = shinythemes::shinytheme("spacelab"),
     
     # Application title
-    titlePanel("World Population Data for showing powerful RShiny features"),
+    # titlePanel("Show powerful RShiny features"),
 
+    tabPanel("Feature Interactive Data Table",
+             # filter inputs
+             sidebarLayout(
+                 
+                 sidebarPanel(
+                     pickerInput(
+                         inputId = "country", 
+                         label = "Select/deselect all + format selected", 
+                         choices = select_country, 
+                         selected = select_country[1:length(select_country)],
+                         options = list(
+                             `actions-box` = TRUE, 
+                             size = 10,
+                             `selected-text-format` = "count > 3",
+                             `size` = 20,`live-search` = TRUE
+                         ), 
+                         multiple = TRUE
+                     ),
+                     
+                     pickerInput(
+                         inputId = "year", 
+                         label = "Select/deselect all + format selected", 
+                         choices = select_year, 
+                         selected = select_year[1:length(select_country)],
+                         options = list(
+                             `actions-box` = TRUE, 
+                             size = 10,
+                             `selected-text-format` = "count > 3",
+                             `size` = 20,`live-search` = TRUE
+                         ), 
+                         multiple = TRUE
+                     )
+                     
+                 ),
+                 
+                 # show output
+                 mainPanel(
+                     DT::dataTableOutput("population_table")
+                 )
+             )),
     
     
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-
-        sidebarPanel(
-            pickerInput(
-                inputId = "country", 
-                label = "Select/deselect all + format selected", 
-                choices = select_country, 
-                selected = select_country[1:length(select_country)],
-                options = list(
-                    `actions-box` = TRUE, 
-                    size = 10,
-                    `selected-text-format` = "count > 3",
-                    `size` = 20,`live-search` = TRUE
-                ), 
-                multiple = TRUE
-            ),
-            
-            pickerInput(
-                inputId = "year", 
-                label = "Select/deselect all + format selected", 
-                choices = select_year, 
-                selected = select_year[1:length(select_country)],
-                options = list(
-                    `actions-box` = TRUE, 
-                    size = 10,
-                    `selected-text-format` = "count > 3",
-                    `size` = 20,`live-search` = TRUE
-                ), 
-                multiple = TRUE
-            )
-            
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            DT::dataTableOutput("population_table")
-        )
-    )
-))
+    tabPanel("Feature reactive Expressions"),
+    tabPanel("Population III")
+)
+#)
 
 
 
