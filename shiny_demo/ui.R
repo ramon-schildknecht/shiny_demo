@@ -59,7 +59,8 @@ navbarPage("World Population Data for showing powerful RShiny features",
     
     
     tabPanel("Feature reactive Expressions"),
-    tabPanel("Population III")
+    
+    tabPanel("to be defined")
 )
 #)
 
